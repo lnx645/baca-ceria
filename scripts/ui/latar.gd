@@ -3,6 +3,7 @@ extends Control
 ## Pemandangan ceria prosedural: langit gradasi, matahari, awan bergerak, bukit, bunga.
 
 var _t: float = 0.0
+var _sejak_gambar: float = 0.0
 
 func _ready() -> void:
 	mouse_filter = MOUSE_FILTER_IGNORE
@@ -10,7 +11,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_t += delta
-	queue_redraw()
+	_sejak_gambar += delta
+	if _sejak_gambar >= 0.12:
+		_sejak_gambar = 0.0
+		queue_redraw()
 
 func _draw() -> void:
 	var w := size.x
