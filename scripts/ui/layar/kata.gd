@@ -72,7 +72,7 @@ func _ronde_baru() -> void:
 		kartu.add_theme_stylebox_override("hover", Gaya.panel(30))
 		kartu.add_theme_stylebox_override("pressed", Gaya.panel(30))
 		kartu.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
-		var g := GambarKata.new(kata_ini)
+		var g := FotoKata.new(kata_ini)
 		g.set_anchors_preset(Control.PRESET_FULL_RECT)
 		kartu.add_child(g)
 		kartu.pressed.connect(func() -> void: _jawab(kartu, kata_ini))

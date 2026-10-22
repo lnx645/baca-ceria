@@ -21,7 +21,7 @@ var _butuh: int = 0
 var _salah: int = 0
 var _jumlah_selesai: int = 0
 var _slot_label: Array[Label] = []
-var _gambar: GambarKata
+var _gambar: FotoKata
 var _baris_chip: HBoxContainer
 var _baris_slot: HBoxContainer
 
@@ -130,8 +130,8 @@ func _bangun_susun() -> void:
 	var kartu := PanelContainer.new()
 	kartu.add_theme_stylebox_override("panel", Gaya.panel(30))
 	h.add_child(kartu)
-	_gambar = GambarKata.new("bola")
-	_gambar.custom_minimum_size = Vector2(250, 200)
+	_gambar = FotoKata.new("bola")
+	_gambar.custom_minimum_size = Vector2(290, 290)
 	kartu.add_child(_gambar)
 	var kanan := VBoxContainer.new()
 	kanan.add_theme_constant_override("separation", 20)

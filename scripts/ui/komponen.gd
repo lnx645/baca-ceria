@@ -106,6 +106,7 @@ static func ortu(induk: Control, app: Node) -> void:
 		var d: Dictionary = app.simpan.data[mode]
 		v.add_child(Gaya.label("%s — %d sesi selesai, %d bintang" % [nama_mode[mode], int(d["sesi"]), int(d["bintang"])], 26))
 	v.add_child(Gaya.label("Total bintang: %d" % app.simpan.total_bintang(), 28, Gaya.TEKS, true))
+	v.add_child(Gaya.label("Foto benda asli dari Wikimedia Commons (lisensi CC — rincian per foto ada di LISENSI.md repo).", 18, Gaya.TEKS_LEMBUT))
 	var baris := HBoxContainer.new()
 	baris.add_theme_constant_override("separation", 14)
 	v.add_child(baris)

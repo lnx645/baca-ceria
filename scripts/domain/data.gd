@@ -13,6 +13,10 @@ const KATA: Array[Dictionary] = [
 	{"kata": "susu", "suku": ["su", "su"]},
 	{"kata": "roda", "suku": ["ro", "da"]},
 	{"kata": "meja", "suku": ["me", "ja"]},
+	{"kata": "apel", "suku": ["a", "pel"]},
+	{"kata": "pisang", "suku": ["pi", "sang"]},
+	{"kata": "kucing", "suku": ["ku", "cing"]},
+	{"kata": "ikan", "suku": ["i", "kan"]},
 ]
 const PUJIAN: Array[String] = ["hebat", "pintar", "bagus", "luar_biasa"]
 
