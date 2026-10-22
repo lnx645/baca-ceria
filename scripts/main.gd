@@ -9,6 +9,9 @@ var _wadah: Control
 var _layar_ini: Control
 
 func _ready() -> void:
+	# Kunci portrait dari dalam aplikasi juga (manifest + pengaturan proyek
+	# ternyata tidak cukup di sebagian HP) — jembatan DisplayServer Android.
+	DisplayServer.screen_set_orientation(DisplayServer.SCREEN_PORTRAIT)
 	Engine.max_fps = 120
 	var latar := Latar.new()
 	latar.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -23,6 +26,10 @@ func _ready() -> void:
 	if simpan.musik_nyala():
 		suara.latar_mulai()
 	ke_layar("menu")
+
+func _notification(apa: int) -> void:
+	if apa == NOTIFICATION_APPLICATION_RESUMED:
+		DisplayServer.screen_set_orientation(DisplayServer.SCREEN_PORTRAIT)
 
 func ke_layar(nama: String) -> void:
 	if _layar_ini:

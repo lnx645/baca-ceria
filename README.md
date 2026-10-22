@@ -1,5 +1,7 @@
 # Baca Ceria
 
+**v1.2.2 — Perbaikan:** orientasi kini dikunci portrait TIGA lapis (manifest + pengaturan proyek + perintah DisplayServer dari dalam aplikasi saat start & resume — di sebagian HP dua lapis pertama tidak dipatuhi) + label versi tampil di panel orang tua.
+
 **v1.2.1 — Perbaikan:** orientasi dikunci PORTRAIT di manifest (template ekspor Godot mengunci landscape — diperbaiki alat_orientasi.py saat pengemasan) + optimasi anti force-close di HP kentang (tekstur foto dikompresi VRAM + diperkecil 512px, latar digambar ulang 8x/detik; APK 63 MB → 53 MB).
 
 **v1.2.0 — Portrait & Serba Baru:** tampilan tegak (portrait) di semua layar; mode **Tulis Huruf** (telusuri jalur A–Z dengan jari), **Kalimat Sederhana** (susun + baca kalimat), **Kartu Memori** (pasangkan foto ↔ kata), dan **Album Stiker** (kumpulkan 22 foto kata). Kata kini 22 dengan tema Hewan/Buah/Benda dan foto asli baru (singa, monyet, sapi, ayam, bangau, nyamuk, jeruk, mangga, anggur, nanas; susu diganti kotak susu, meja & pisang diganti foto lebih bersih). Suku kata bertambah digraf **ng & ny**. Panel orang tua: banyak profil anak, rapor per kemampuan + saran harian, musik latar lembut, dan gerbang Premium (Kalimat & Memori; pembayaran asli menyusul di Play Store — tombol aktivasi saat ini simulasi).

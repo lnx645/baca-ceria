@@ -176,6 +176,8 @@ static func ortu(induk: Control, app: Node) -> void:
 	kredit.custom_minimum_size = Vector2(548, 0)
 	kredit.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	v.add_child(kredit)
+	var versi := Gaya.label("Baca Ceria v1.2.2", 17, Gaya.TEKS_LEMBUT)
+	v.add_child(versi)
 	var baris := HBoxContainer.new()
 	baris.add_theme_constant_override("separation", 14)
 	v.add_child(baris)
