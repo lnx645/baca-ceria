@@ -13,7 +13,7 @@ var _mode: String = "belajar"
 var _konsonan_ini: String = "b"
 var _tampilan: Label
 var _baris_vokal: HBoxContainer
-var _baris_konsonan: HBoxContainer
+var _baris_konsonan: GridContainer
 # Susun kata
 var _antre: Array = []
 var _kata_ini: Dictionary = {}
@@ -29,8 +29,8 @@ func siapkan(app: Node) -> void:
 	_app = app
 	var margin := MarginContainer.new()
 	margin.set_anchors_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 44)
-	margin.add_theme_constant_override("margin_right", 44)
+	margin.add_theme_constant_override("margin_left", 32)
+	margin.add_theme_constant_override("margin_right", 32)
 	margin.add_theme_constant_override("margin_top", 22)
 	margin.add_theme_constant_override("margin_bottom", 20)
 	add_child(margin)
@@ -75,9 +75,10 @@ func _bersihkan_isi() -> void:
 func _bangun_belajar() -> void:
 	_bersihkan_isi()
 	_app.suara.narasi("belajar_suku")
-	_baris_konsonan = HBoxContainer.new()
-	_baris_konsonan.alignment = BoxContainer.ALIGNMENT_CENTER
-	_baris_konsonan.add_theme_constant_override("separation", 10)
+	_baris_konsonan = GridContainer.new()
+	_baris_konsonan.columns = 7
+	_baris_konsonan.add_theme_constant_override("h_separation", 8)
+	_baris_konsonan.add_theme_constant_override("v_separation", 8)
 	_isi.add_child(_baris_konsonan)
 	_segarkan_konsonan()
 	var tengah := HBoxContainer.new()
@@ -88,7 +89,7 @@ func _bangun_belajar() -> void:
 	tengah.add_child(_tampilan)
 	_baris_vokal = HBoxContainer.new()
 	_baris_vokal.alignment = BoxContainer.ALIGNMENT_CENTER
-	_baris_vokal.add_theme_constant_override("separation", 16)
+	_baris_vokal.add_theme_constant_override("separation", 10)
 	_isi.add_child(_baris_vokal)
 	_segarkan_vokal()
 
@@ -97,8 +98,8 @@ func _segarkan_konsonan() -> void:
 		anak.queue_free()
 	for i in Data.KONSONAN.size():
 		var k := Data.KONSONAN[i]
-		var b := Gaya.tombol(k, Gaya.UNGU if k == _konsonan_ini else Color("B8C4CC"), 36)
-		b.custom_minimum_size = Vector2(78, 70)
+		var b := Gaya.tombol(k, Gaya.UNGU if k == _konsonan_ini else Color("B8C4CC"), 33)
+		b.custom_minimum_size = Vector2(80, 68)
 		var k_ini := k
 		b.pressed.connect(func() -> void:
 			_konsonan_ini = k_ini
@@ -112,8 +113,8 @@ func _segarkan_vokal() -> void:
 		anak.queue_free()
 	for i in Data.VOKAL.size():
 		var s := _konsonan_ini + Data.VOKAL[i]
-		var b := Gaya.tombol(s, Gaya.PERMEN[i % Gaya.PERMEN.size()], 76)
-		b.custom_minimum_size = Vector2(168, 138)
+		var b := Gaya.tombol(s, Gaya.PERMEN[i % Gaya.PERMEN.size()], 62)
+		b.custom_minimum_size = Vector2(120, 118)
 		var s_ini := s
 		b.pressed.connect(func() -> void:
 			_tampilan.text = s_ini
@@ -123,31 +124,32 @@ func _segarkan_vokal() -> void:
 
 func _bangun_susun() -> void:
 	_bersihkan_isi()
-	var h := HBoxContainer.new()
-	h.add_theme_constant_override("separation", 30)
-	h.alignment = BoxContainer.ALIGNMENT_CENTER
-	_isi.add_child(h)
+	var tengah := HBoxContainer.new()
+	tengah.alignment = BoxContainer.ALIGNMENT_CENTER
+	_isi.add_child(tengah)
 	var kartu := PanelContainer.new()
 	kartu.add_theme_stylebox_override("panel", Gaya.panel(30))
-	h.add_child(kartu)
+	tengah.add_child(kartu)
 	_gambar = FotoKata.new("bola")
-	_gambar.custom_minimum_size = Vector2(290, 290)
+	_gambar.custom_minimum_size = Vector2(268, 268)
 	kartu.add_child(_gambar)
-	var kanan := VBoxContainer.new()
-	kanan.add_theme_constant_override("separation", 20)
-	h.add_child(kanan)
+	var baris_dengar := HBoxContainer.new()
+	baris_dengar.alignment = BoxContainer.ALIGNMENT_CENTER
+	_isi.add_child(baris_dengar)
 	var dengar := Gaya.tombol("Dengarkan Kata", Gaya.ORANYE, 30)
-	dengar.custom_minimum_size = Vector2(300, 74)
+	dengar.custom_minimum_size = Vector2(340, 76)
 	dengar.pressed.connect(func() -> void:
 		if not _kata_ini.is_empty():
 			_app.suara.kata(String(_kata_ini["kata"])))
-	kanan.add_child(dengar)
+	baris_dengar.add_child(dengar)
 	_baris_slot = HBoxContainer.new()
+	_baris_slot.alignment = BoxContainer.ALIGNMENT_CENTER
 	_baris_slot.add_theme_constant_override("separation", 14)
-	kanan.add_child(_baris_slot)
+	_isi.add_child(_baris_slot)
 	_baris_chip = HBoxContainer.new()
+	_baris_chip.alignment = BoxContainer.ALIGNMENT_CENTER
 	_baris_chip.add_theme_constant_override("separation", 14)
-	kanan.add_child(_baris_chip)
+	_isi.add_child(_baris_chip)
 
 func _mulai_susun() -> void:
 	_antre = Data.KATA.duplicate()
@@ -214,7 +216,10 @@ func _ketuk_chip(b: Button, teks: String) -> void:
 			if not is_inside_tree():
 				return
 			_app.suara.sfx("hore")
-			_app.suara.kata(String(_kata_ini["kata"]))
+			if _app.simpan.tandai_kata(String(_kata_ini["kata"])):
+				_app.suara.berurutan(["res://audio/kata/%s.wav" % String(_kata_ini["kata"]), "res://audio/narasi/stiker_baru.wav"])
+			else:
+				_app.suara.kata(String(_kata_ini["kata"]))
 			await get_tree().create_timer(1.3).timeout
 			if is_inside_tree():
 				_kata_baru()

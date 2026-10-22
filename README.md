@@ -1,5 +1,7 @@
 # Baca Ceria
 
+**v1.2.0 — Portrait & Serba Baru:** tampilan tegak (portrait) di semua layar; mode **Tulis Huruf** (telusuri jalur A–Z dengan jari), **Kalimat Sederhana** (susun + baca kalimat), **Kartu Memori** (pasangkan foto ↔ kata), dan **Album Stiker** (kumpulkan 22 foto kata). Kata kini 22 dengan tema Hewan/Buah/Benda dan foto asli baru (singa, monyet, sapi, ayam, bangau, nyamuk, jeruk, mangga, anggur, nanas; susu diganti kotak susu, meja & pisang diganti foto lebih bersih). Suku kata bertambah digraf **ng & ny**. Panel orang tua: banyak profil anak, rapor per kemampuan + saran harian, musik latar lembut, dan gerbang Premium (Kalimat & Memori; pembayaran asli menyusul di Play Store — tombol aktivasi saat ini simulasi).
+
 Game edukasi membaca permulaan untuk anak Indonesia usia 4–7 tahun — judul pertama seri **Ceria** (Poggy). Dibangun dengan Godot 4.3, 100% offline, tanpa iklan & tanpa pelacak (ramah aturan Google Play Families).
 
 ## Isi permainan

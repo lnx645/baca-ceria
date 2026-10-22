@@ -20,3 +20,20 @@ Foto dipotong persegi, sudut dibulatkan, dan warna dinaikkan seperlunya. Atribus
 - **pisang** — "HK WC 灣仔 Wan Chai Road market fruit shop banana yellow August 2021 SS2.jpg" oleh <a href="//commons.wikimedia.org/wiki/User:HAHY_886_HK" title="User:HAHY 886 HK" — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:HK_WC_%E7%81%A3%E4%BB%94_Wan_Chai_Road_market_fruit_shop_banana_yellow_August_2021_SS2.jpg
 - **kucing** — "1-month-old kittens 32.jpg" oleh 0x010C</a — CC BY-SA 2.0 — https://commons.wikimedia.org/wiki/File:1-month-old_kittens_32.jpg
 - **ikan** — "Carassius wild golden fish 2013 G1.jpg" oleh <a href="//commons.wikimedia.org/wiki/User:George_Chernilevsky" title="User:Geor — Public domain — https://commons.wikimedia.org/wiki/File:Carassius_wild_golden_fish_2013_G1.jpg
+
+
+## Foto tambahan & pengganti (v1.2) — Wikimedia Commons
+Tema hewan, buah, dan penggantian susu (sekarang kotak susu), meja (meja makan rumahan), dan pisang (setandan matang latar bersih):
+- **sapi** — "Cow with ear tag (20130911-OC-RBN-3760 (9733482279)).jpg" oleh <a rel="nofollow" class="external text" href="https://www.flickr.com/people/4 — Public domain — https://commons.wikimedia.org/wiki/File:Cow_with_ear_tag_(20130911-OC-RBN-3760_(9733482279)).jpg
+- **ayam** — "Hen chicken.jpg" oleh <a href="//commons.wikimedia.org/wiki/User:Thegreenj~commonswiki" title="User:Th — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Hen_chicken.jpg
+- **jeruk** — "Ambersweet oranges.jpg" oleh kontributor Wikimedia Commons — Public domain — https://commons.wikimedia.org/wiki/File:Ambersweet_oranges.jpg
+- **mangga** — "MangoAlphonso04 Asit.jpg" oleh Asit K. Ghosh  <a href="//commons.wikimedia.org/wiki/User:Thaumaturgist" title=" — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:MangoAlphonso04_Asit.jpg
+- **anggur** — "2019-10-11 00 15 02 A bunch of Dayka Hackett Flavor Grown Fresh and Delicious Red Seedless Table Grapes in the Franklin Farm section of Oak Hill, Fairfax County, Virginia.jpg" oleh Famar — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:2019-10-11_00_15_02_A_bunch_of_Dayka_Hackett_Flavor_Grown_Fresh_and_Delicious_Red_Seedless_Table_Grapes_in_the_Franklin_Farm_section_of_Oak_Hill,_Fairfax_County,_Virginia.jpg
+- **nanas** — "Pineapple-fruit.jpg" oleh <a href="//commons.wikimedia.org/wiki/User:UneksAbdullahi" title="User:UneksAbdu — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Pineapple-fruit.jpg
+- **singa** — "011 The lion king Tryggve in the Serengeti National Park Photo by Giles Laurent.jpg" oleh <a href="//commons.wikimedia.org/wiki/User:Giles_Laurent" title="User:Giles Laur — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:011_The_lion_king_Tryggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg
+- **monyet** — "Davidraju img15(Macaca mulatta) Rhesus macaque.jpg" oleh D — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Davidraju_img15(Macaca_mulatta)_Rhesus_macaque.jpg
+- **nyamuk** — "Mosquito 2007-2.jpg" oleh <a href="//commons.wikimedia.org/wiki/User:Alvesgaspar" title="User:Alvesgaspar" — CC BY-SA 3.0 — https://commons.wikimedia.org/wiki/File:Mosquito_2007-2.jpg
+- **bangau** — "Ciconia ciconia (Cigogne blanche) - 463.jpg" oleh <div style="clear:both; border: 1px solid #999; margin: 1em; padding: 1em; backg — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Ciconia_ciconia_(Cigogne_blanche)_-_463.jpg
+- **susu** — "-2022-02-09 A 2 Litre carton of skimmed milk, Trimingham, Norfolk (1).JPG" oleh <table style="margin: 1.5em auto; width:60%; background-color:#CCCCCC; border:2p — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:-2022-02-09_A_2_Litre_carton_of_skimmed_milk,_Trimingham,_Norfolk_(1).JPG
+- **meja** — "Kitchen table.jpg" oleh <a href="https://en.wikipedia.org/wiki/User:Sundae2Sundae" class="extiw" title=" — Public domain — https://commons.wikimedia.org/wiki/File:Kitchen_table.jpg
+- **pisang** — "Banana bunch on wall.jpg" oleh Rangbaz — CC BY-SA 4.0 — https://commons.wikimedia.org/wiki/File:Banana_bunch_on_wall.jpg

@@ -20,6 +20,8 @@ func _ready() -> void:
 	add_child(suara)
 	simpan = Simpan.new()
 	simpan.muat()
+	if simpan.musik_nyala():
+		suara.latar_mulai()
 	ke_layar("menu")
 
 func ke_layar(nama: String) -> void:
@@ -34,6 +36,14 @@ func ke_layar(nama: String) -> void:
 			layar = LayarSuku.new()
 		"kata":
 			layar = LayarKata.new()
+		"tulis":
+			layar = LayarTulis.new()
+		"kalimat":
+			layar = LayarKalimat.new()
+		"memori":
+			layar = LayarMemori.new()
+		"album":
+			layar = LayarAlbum.new()
 		_:
 			layar = LayarMenu.new()
 	layar.set_anchors_preset(Control.PRESET_FULL_RECT)

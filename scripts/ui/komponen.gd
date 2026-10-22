@@ -83,7 +83,7 @@ static func _pop_bintang(nodes: Array[Bintang], app: Node) -> void:
 		tw.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		tw.tween_property(b, "scale", Vector2.ONE, 0.35)
 
-## Panel khusus orang tua: progres per mode + reset.
+## Panel khusus orang tua: profil anak, rapor per kemampuan, saran, premium, reset.
 static func ortu(induk: Control, app: Node) -> void:
 	app.suara.narasi("untuk_ortu")
 	var redup := ColorRect.new()
@@ -96,30 +96,99 @@ static func ortu(induk: Control, app: Node) -> void:
 	var kartu := PanelContainer.new()
 	kartu.add_theme_stylebox_override("panel", Gaya.panel(36))
 	tengah.add_child(kartu)
+	var gulir := ScrollContainer.new()
+	gulir.custom_minimum_size = Vector2(604, 1020)
+	gulir.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	kartu.add_child(gulir)
 	var v := VBoxContainer.new()
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	v.add_theme_constant_override("separation", 12)
-	kartu.add_child(v)
+	gulir.add_child(v)
 	v.add_child(Gaya.judul("Untuk Ayah & Bunda", 40))
-	v.add_child(Gaya.label("Progres belajar anak (tersimpan di perangkat ini saja):", 24, Gaya.TEKS_LEMBUT))
-	var nama_mode := {"huruf": "Belajar Huruf", "suku": "Suku Kata & Susun Kata", "kata": "Kata Bergambar"}
-	for mode in ["huruf", "suku", "kata"]:
-		var d: Dictionary = app.simpan.data[mode]
-		v.add_child(Gaya.label("%s — %d sesi selesai, %d bintang" % [nama_mode[mode], int(d["sesi"]), int(d["bintang"])], 26))
-	v.add_child(Gaya.label("Total bintang: %d" % app.simpan.total_bintang(), 28, Gaya.TEKS, true))
-	v.add_child(Gaya.label("Foto benda asli dari Wikimedia Commons (lisensi CC — rincian per foto ada di LISENSI.md repo).", 18, Gaya.TEKS_LEMBUT))
+	# --- Profil anak ---
+	v.add_child(Gaya.label("Profil anak (yang sedang aktif dicentang):", 24, Gaya.TEKS_LEMBUT))
+	for nama in app.simpan.daftar_profil():
+		var n := String(nama)
+		var aktif: bool = n == app.simpan.profil_aktif()
+		var b := Gaya.tombol((n + " (aktif)") if aktif else n, Gaya.BIRU if aktif else Color("B8C4CC"), 24)
+		b.custom_minimum_size = Vector2(420, 58)
+		b.pressed.connect(func() -> void:
+			app.simpan.ganti_profil(n)
+			redup.queue_free()
+			ortu(induk, app))
+		v.add_child(b)
+	var baris_tambah := HBoxContainer.new()
+	baris_tambah.add_theme_constant_override("separation", 10)
+	v.add_child(baris_tambah)
+	var isian := LineEdit.new()
+	isian.placeholder_text = "Nama anak baru"
+	isian.custom_minimum_size = Vector2(300, 58)
+	isian.max_length = 16
+	isian.add_theme_font_override("font", Gaya.font_biasa())
+	isian.add_theme_font_size_override("font_size", 24)
+	baris_tambah.add_child(isian)
+	var tambah := Gaya.tombol("Tambah", Gaya.HIJAU, 24)
+	tambah.custom_minimum_size = Vector2(150, 58)
+	tambah.pressed.connect(func() -> void:
+		if app.simpan.tambah_profil(isian.text):
+			redup.queue_free()
+			ortu(induk, app))
+	baris_tambah.add_child(tambah)
+	if app.simpan.daftar_profil().size() > 1:
+		var hapus := Gaya.tombol("Hapus Profil Aktif", Color("B8C4CC"), 22)
+		hapus.pressed.connect(func() -> void:
+			if hapus.text == "Hapus Profil Aktif":
+				hapus.text = "Yakin? Ketuk Sekali Lagi"
+			else:
+				app.simpan.hapus_profil(app.simpan.profil_aktif())
+				redup.queue_free()
+				ortu(induk, app))
+		v.add_child(hapus)
+	# --- Rapor per kemampuan ---
+	v.add_child(Gaya.label("Rapor — profil: " + app.simpan.profil_aktif(), 26, Gaya.TEKS, true))
+	for mode in Simpan.MODE_LABEL.keys():
+		var baris_mode := Gaya.label("%s — %d sesi, %d bintang (%s)" % [String(Simpan.MODE_LABEL[mode]), app.simpan.sesi(mode), app.simpan.bintang(mode), app.simpan.status_kemampuan(mode)], 24)
+		baris_mode.custom_minimum_size = Vector2(548, 0)
+		baris_mode.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		v.add_child(baris_mode)
+	v.add_child(Gaya.label("Total: %d bintang dari %d sesi. Sesi hari ini: %d." % [app.simpan.total_bintang(), app.simpan.total_sesi(), app.simpan.sesi_hari_ini()], 24))
+	var saran := Gaya.label(app.simpan.saran_hari_ini(), 24, Gaya.UNGU, true)
+	saran.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	v.add_child(saran)
+	# --- Premium ---
+	if app.simpan.premium():
+		v.add_child(Gaya.label("Premium: AKTIF — semua mode terbuka. Terima kasih!", 24, Gaya.HIJAU, true))
+		var matikan := Gaya.tombol("Nonaktifkan Premium", Color("B8C4CC"), 22)
+		matikan.pressed.connect(func() -> void:
+			app.simpan.set_premium(false)
+			redup.queue_free()
+			ortu(induk, app))
+		v.add_child(matikan)
+	else:
+		v.add_child(Gaya.label("Premium membuka mode Kalimat & Kartu Memori.", 24, Gaya.TEKS_LEMBUT))
+		var aktifkan := Gaya.tombol("Aktifkan Premium (Simulasi)", Gaya.EMAS, 24)
+		aktifkan.pressed.connect(func() -> void:
+			app.simpan.set_premium(true)
+			redup.queue_free()
+			ortu(induk, app))
+		v.add_child(aktifkan)
+	var kredit := Gaya.label("Foto benda asli dari Wikimedia Commons (lisensi CC — rincian per foto ada di LISENSI.md repo). Narasi: suara sintetis Piper TTS.", 17, Gaya.TEKS_LEMBUT)
+	kredit.custom_minimum_size = Vector2(548, 0)
+	kredit.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	v.add_child(kredit)
 	var baris := HBoxContainer.new()
 	baris.add_theme_constant_override("separation", 14)
 	v.add_child(baris)
-	var reset := Gaya.tombol("Atur Ulang Progres", Color("B8C4CC"), 24)
+	var reset := Gaya.tombol("Atur Ulang Semua", Color("B8C4CC"), 23)
 	reset.pressed.connect(func() -> void:
-		if reset.text == "Atur Ulang Progres":
+		if reset.text == "Atur Ulang Semua":
 			reset.text = "Yakin? Ketuk Sekali Lagi"
 		else:
-			app.simpan.reset()
+			app.simpan.reset_semua()
 			redup.queue_free()
 			ortu(induk, app))
 	baris.add_child(reset)
-	var tutup := Gaya.tombol("Tutup", Gaya.BIRU, 26)
-	tutup.custom_minimum_size = Vector2(170, 68)
+	var tutup := Gaya.tombol("Tutup", Gaya.BIRU, 25)
+	tutup.custom_minimum_size = Vector2(170, 64)
 	tutup.pressed.connect(func() -> void: redup.queue_free())
 	baris.add_child(tutup)

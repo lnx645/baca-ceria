@@ -23,8 +23,8 @@ func siapkan(app: Node) -> void:
 	_app = app
 	var margin := MarginContainer.new()
 	margin.set_anchors_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 44)
-	margin.add_theme_constant_override("margin_right", 44)
+	margin.add_theme_constant_override("margin_left", 32)
+	margin.add_theme_constant_override("margin_right", 32)
 	margin.add_theme_constant_override("margin_top", 22)
 	margin.add_theme_constant_override("margin_bottom", 20)
 	add_child(margin)
@@ -80,15 +80,15 @@ func _bangun_belajar() -> void:
 	gulir.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_isi.add_child(gulir)
 	var grid := GridContainer.new()
-	grid.columns = 7
+	grid.columns = 5
 	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
 	gulir.add_child(grid)
 	for i in Data.HURUF.size():
 		var h := Data.HURUF[i]
-		var b := Gaya.tombol(h.to_upper(), Gaya.PERMEN[i % Gaya.PERMEN.size()], 56)
-		b.custom_minimum_size = Vector2(140, 108)
+		var b := Gaya.tombol(h.to_upper(), Gaya.PERMEN[i % Gaya.PERMEN.size()], 50)
+		b.custom_minimum_size = Vector2(118, 102)
 		var huruf_ini := h
 		var idx := i
 		b.pressed.connect(func() -> void:

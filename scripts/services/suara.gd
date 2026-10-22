@@ -5,8 +5,12 @@ extends Node
 var _narasi: AudioStreamPlayer
 var _sfx: Array[AudioStreamPlayer] = []
 var _antre: Array[String] = []
+var _pemain_musik: AudioStreamPlayer
 
 func _init() -> void:
+	_pemain_musik = AudioStreamPlayer.new()
+	_pemain_musik.bus = "Master"
+	add_child(_pemain_musik)
 	_narasi = AudioStreamPlayer.new()
 	_narasi.bus = "Master"
 	add_child(_narasi)
@@ -64,3 +68,23 @@ func sfx(nama: String) -> void:
 			p.stream = s
 			p.play()
 			return
+
+func kalimat(teks: String) -> void:
+	_putar_narasi("res://audio/kalimat/" + teks.to_lower().replace(" ", "_") + ".wav")
+
+func latar_mulai() -> void:
+	var jalur := "res://audio/musik/latar.wav"
+	if not ResourceLoader.exists(jalur):
+		return
+	var aliran := load(jalur) as AudioStreamWAV
+	if aliran == null:
+		return
+	aliran.loop_mode = AudioStreamWAV.LOOP_FORWARD
+	aliran.loop_begin = 0
+	aliran.loop_end = aliran.get_frames()
+	_pemain_musik.stream = aliran
+	_pemain_musik.volume_db = -26.0
+	_pemain_musik.play()
+
+func latar_stop() -> void:
+	_pemain_musik.stop()

@@ -10,15 +10,18 @@ var _ronde: int = 0
 var _salah: int = 0
 var _target: String = ""
 var _terkunci: bool = false
-var _baris_kartu: HBoxContainer
+var _baris_kartu: VBoxContainer
+var _tema: String = "semua"
+static var tema_terpilih: String = "semua"
 var _label_ronde: Label
 
 func siapkan(app: Node) -> void:
 	_app = app
+	_tema = tema_terpilih
 	var margin := MarginContainer.new()
 	margin.set_anchors_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 44)
-	margin.add_theme_constant_override("margin_right", 44)
+	margin.add_theme_constant_override("margin_left", 32)
+	margin.add_theme_constant_override("margin_right", 32)
 	margin.add_theme_constant_override("margin_top", 22)
 	margin.add_theme_constant_override("margin_bottom", 20)
 	add_child(margin)
@@ -26,6 +29,19 @@ func siapkan(app: Node) -> void:
 	v.add_theme_constant_override("separation", 16)
 	margin.add_child(v)
 	Komponen.bilah(v, "Kata Bergambar", func() -> void: minta.emit("menu"))
+	# Chip tema
+	var baris_tema := HBoxContainer.new()
+	baris_tema.add_theme_constant_override("separation", 10)
+	v.add_child(baris_tema)
+	for t in [["semua", "Semua"], ["hewan", "Hewan"], ["buah", "Buah"], ["benda", "Benda"]]:
+		var id_tema := String(t[0])
+		var c := Komponen.chip(String(t[1]), _tema == id_tema, Gaya.HIJAU)
+		c.custom_minimum_size = Vector2(148, 58)
+		c.pressed.connect(func() -> void:
+			tema_terpilih = id_tema
+			_app.suara.sfx("pop")
+			minta.emit("kata"))
+		baris_tema.add_child(c)
 	_isi = VBoxContainer.new()
 	_isi.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	v.add_child(_isi)
@@ -39,9 +55,8 @@ func siapkan(app: Node) -> void:
 	dengar.custom_minimum_size = Vector2(220, 66)
 	dengar.pressed.connect(func() -> void: _suara_soal())
 	tengah.add_child(dengar)
-	_baris_kartu = HBoxContainer.new()
-	_baris_kartu.alignment = BoxContainer.ALIGNMENT_CENTER
-	_baris_kartu.add_theme_constant_override("separation", 24)
+	_baris_kartu = VBoxContainer.new()
+	_baris_kartu.add_theme_constant_override("separation", 18)
 	_isi.add_child(_baris_kartu)
 	_mulai()
 
@@ -57,7 +72,7 @@ func _ronde_baru() -> void:
 		return
 	_terkunci = false
 	_label_ronde.text = "Soal %d dari 5" % _ronde
-	var semua: Array = Data.KATA.duplicate()
+	var semua: Array = Data.kata_tema(_tema)
 	semua.shuffle()
 	_target = String(semua[0]["kata"])
 	var opsi: Array = [semua[0], semua[1], semua[2]]
@@ -67,7 +82,7 @@ func _ronde_baru() -> void:
 	for k in opsi:
 		var kata_ini := String(k["kata"])
 		var kartu := Button.new()
-		kartu.custom_minimum_size = Vector2(300, 300)
+		kartu.custom_minimum_size = Vector2(620, 252)
 		kartu.add_theme_stylebox_override("normal", Gaya.panel(30))
 		kartu.add_theme_stylebox_override("hover", Gaya.panel(30))
 		kartu.add_theme_stylebox_override("pressed", Gaya.panel(30))
@@ -89,7 +104,10 @@ func _jawab(kartu: Button, kata: String) -> void:
 	if kata == _target:
 		_terkunci = true
 		_app.suara.sfx("pop")
-		_app.suara.narasi(Data.PUJIAN[randi() % Data.PUJIAN.size()])
+		if _app.simpan.tandai_kata(_target):
+			_app.suara.berurutan(["res://audio/narasi/%s.wav" % Data.PUJIAN[randi() % Data.PUJIAN.size()], "res://audio/narasi/stiker_baru.wav"])
+		else:
+			_app.suara.narasi(Data.PUJIAN[randi() % Data.PUJIAN.size()])
 		kartu.modulate = Color(0.8, 1.35, 0.8)
 		await get_tree().create_timer(1.25).timeout
 		if is_inside_tree():
